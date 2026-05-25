@@ -91,10 +91,12 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # config/settings.py
 
+import dj_database_url
+
 DATABASES = {
-   'default': dj_database_url.config(
-        default=f"postgres://{config('DB_USER')}:{config('DB_PASSWORD')}@{config('DB_HOST')}:{config('DB_PORT')}/{config('DB_NAME')}",
-        conn_max_age=600
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        ssl_require=os.environ.get('RENDER', False) 
     )
 }
 
